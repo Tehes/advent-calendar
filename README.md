@@ -1,266 +1,77 @@
-# Starter Template for Web or Progressive Web App (PWA)
+# Advent Calendar
 
-This is a versatile starter template designed to help you build either a traditional website or a
-Progressive Web Application (PWA) with minimal setup. It includes essential features like responsive
-design, caching for offline support (if used as a PWA), and basic asset management.
+Twenty-four days of hand-painted watercolor illustrations. Open a door each day in December to reveal
+its illustration, with a paper background and doors in Christmas red and fir green.
+
+**Open the Calendar:** [Advent Calendar](https://tehes.github.io/advent-calendar/)
+
+---
 
 ## Features
 
-- **Responsive Design**: Includes styles and meta tags for mobile compatibility.
-- **Service Worker** (PWA mode): Cache‑first + Stale‑While‑Revalidate strategy; works offline after
-  the first online visit.
-- **PWA Manifest** (PWA mode): A manifest file for adding the app to home screens on mobile devices.
-- **Deno Lint & Format**: The included `deno.json` sets up `deno lint` (recommended rules) and
-  `deno fmt` (tabs, 4‑space tab width, 100 char max line length, semicolons).
-- **Favicons**: Ready‑to‑use SVG (`favicon.svg`) and PNG (`180x180.png`) favicons are included. All
-  modern browsers already render SVG favicons; Safari follows in autumn 2025 with iOS 26, so a PNG
-  fallback remains essential.
+- **24 illustrations:** Each numbered door reveals a different watercolor illustration in a larger view.
+- **A door a day:** Doors unlock on their December date, based on your device's local time. Earlier
+  days remain available, so you can catch up whenever you like.
+- **Remembered progress:** Opened doors stay revealed between visits in the same browser. Progress
+  is saved locally for the current year and starts fresh each year.
+- **Open and close:** Close a revealed door and open it again to revisit its illustration.
+- **Responsive layout:** The calendar adapts to phones, tablets, and desktop screens, with larger
+  doors for December 6 and 24.
 
-## Optional: Server-side Endpoints via Deno Deploy
+---
 
-This template optionally supports server-side or edge endpoints using **Deno Deploy**.
+## How to Use
 
-- Endpoints live in `api/main.js`.
-- All code (frontend + API) resides in the same GitHub Pages repository.
-- Client-side code and Deno-specific code are strictly separated.
-- If you don’t need server-side functionality, you can simply ignore or remove the `api/` folder.
+1. Click or tap an available numbered door to view its illustration.
+2. Use **Close**, press **Escape**, or click outside the illustration overlay to return to the calendar.
+3. The opened door now shows its illustration. Click or tap it to close the door; open it again to
+   see the larger view.
 
-## Structure
+From December 1 through 24, one more door becomes available each day. All 24 remain available through
+December 31. Outside December, the doors are locked.
 
-```bash
-├── index.html         # Main entry point
-├── css/
-│   └── style.css      # Base styles, light colour scheme
-├── js/
-│   ├── app.js         # Main JavaScript, includes initialization and SW configuration
-│   └── service-worker-registration.js # Browser-side SW registration and cleanup
-├── api/
-│   └── main.js        # Optional server-side endpoints (Deno Deploy)
-├── data/              # Optional static data (JSON, lookups, seeds)
-├── icons/             # Application icons / favicons
-├── svg/               # UI SVG icons
-├── manifest.json      # PWA manifest (only for PWA usage)
-├── service-worker.js  # Service worker (only for PWA usage)
-├── deno.json          # Deno linting & formatting config
-├── AGENTS.md          # AI / agent coding guidelines
-├── .nojekyll          # Required for GitHub Pages
-├── README.md
-└── LICENSE.txt
-```
+Progress is stored in your browser, without an account or sync between devices. Clearing the site's
+browser storage removes your saved progress.
 
-## Installation
+---
 
-1. Clone or download the repository using your preferred method (via Git, GitHub CLI, or downloading
-   the ZIP).
-2. Open the project in your preferred text editor.
-3. Serve the project using any local server solution of your choice (e.g., using Live Server from
-   your editor or another tool).
+## For Developers
 
-## Initial Setup
+The calendar uses plain HTML, CSS, and JavaScript modules, with no dependencies or build step.
+Serve the project folder with a static server such as VS Code's Live Server.
 
-This template can be used in two different ways: as a **standard website** or as a **Progressive Web
-App (PWA)**. Depending on which type of app you want to build, follow the instructions below.
+Open [http://127.0.0.1:5500/](http://127.0.0.1:5500/) in your browser.
+On `localhost` and `127.0.0.1`, all 24 doors are available throughout the year for previewing.
+Local preview progress uses a separate storage key from the published calendar.
 
-### 1. As a Standard Website
+The main files are:
 
-If you're building a regular website, some features related to PWAs are unnecessary and can be
-removed or commented out:
+- `index.html`: Calendar layout, door template, and illustration dialog.
+- `css/style.css`: Paper background, colors, door sizes, and responsive layout.
+- `js/app.js`: Door order, date rules, illustration loading, and saved progress.
+- `img/Adventskalender_1.jpg` through `img/Adventskalender_24.jpg`: Daily illustrations.
 
-#### Required Changes for Standard Website
+The calendar runs entirely in the browser and does not require a backend.
 
-- **Manifest file**: You can remove or ignore `manifest.json` as it's only needed for PWAs.
+---
 
-- **Service Worker**: You don't need a service worker. In `js/app.js`, set `USE_SERVICE_WORKER` to
-  `false` to ensure that no service worker is registered and that any previously registered service
-  worker is unregistered. The registration and cleanup logic itself lives in
-  `js/service-worker-registration.js`:
+## License and usage
 
-  ```javascript
-  const USE_SERVICE_WORKER = false;
-  ```
+The code is source-available, not open source. The illustrations are excluded from this license.
 
-- **Meta Tags**: You can remove or ignore the following meta tags in `index.html`:
+You may view and modify the code for personal, educational, and non-commercial purposes.
 
-  ```html
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="--yourSiteName--">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  ```
+If you publicly redistribute this project or a modified version of it, you must:
 
-- **CSS for PWAs**: The following CSS rules are important for PWAs, but may not be necessary for a
-  standard website:
-  - **`user-select: none;`** and **`-webkit-user-select: none;`**: These rules prevent users from
-    selecting text. In standard websites, this might not be necessary, but for PWAs, where
-    interactions like clicking and swiping are important, it can prevent unwanted text selection.
-  - **`-webkit-touch-callout: none;`**: This rule disables the touch-and-hold menu on iOS (e.g., for
-    "Copy" or "Save Image"), which can be useful in PWAs where such actions are not relevant. You
-    can remove or comment it out if not needed for your use case.
+- link to the original project repository
+- include a visible attribution to the original project and author, where technically and contextually appropriate
+- clearly mark your version as modified and unofficial
 
-  ```css
-  body {
-   user-select: none; /* Prevents text selection */
-   -webkit-user-select: none; /* Prevents text selection on older WebKit-based browsers */
-   -webkit-touch-callout: none; /* Disables the long-press menu on iOS */
-  }
-  ```
+Commercial use, paid hosting, resale, and misleading rebranding are not allowed without prior written permission.
 
-### 2. As a Progressive Web App (PWA)
+See [LICENSE.txt](LICENSE.txt) for the full terms.
 
-If you want to take full advantage of PWA features, follow these steps to ensure everything is set
-up correctly:
+### Illustrations
 
-#### Required Changes for PWA
-
-- **Manifest File**: Make sure `manifest.json` is properly configured. Replace the placeholders
-  (`--yourSiteName--`, `--your description--`) with the actual name, description, and icons of your
-  app.
-
-  Example:
-
-  ```json
-  {
-   "short_name": "MyApp",
-   "name": "My Application",
-   "description": "A brief description of My Application.",
-   "icons": [
-    {
-     "src": "icons/favicon.svg",
-     "type": "image/svg+xml",
-     "sizes": "any"
-    },
-    {
-     "src": "icons/180x180.png",
-     "type": "image/png",
-     "sizes": "180x180"
-    }
-   ],
-   "start_url": "/",
-   "scope": "/",
-   "background_color": "#eee",
-   "display": "standalone",
-   "theme_color": "#eee"
-  }
-  ```
-
-- **Service Worker**: In `js/app.js`, set `USE_SERVICE_WORKER` to `true` and define
-  `SERVICE_WORKER_VERSION`. The browser-side registration and cleanup logic lives in
-  `js/service-worker-registration.js`. The Service Worker will be registered with a versioned URL
-  like `service-worker.js?v=...`, ensuring that updates are always detected by the browser:
-
-  ```javascript
-  const USE_SERVICE_WORKER = true;
-  const SERVICE_WORKER_VERSION = "2026-03-12-v1";
-  ```
-
-- **Cache Naming**: The Service Worker extracts the `v` parameter from its registration URL and uses
-  it to generate a versioned cache name. You don't need to change `CACHE_NAME` manually.
-
-- **Meta Tags**: Ensure the PWA-specific meta tags are included in your `index.html` for mobile
-  compatibility and PWA installation:
-
-  ```html
-  <link rel="manifest" href="manifest.json">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="MyApp">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  ```
-
-- **CSS (Touch-Action)**: Keep the following line in your `style.css` to disable double-tap zoom on
-  mobile devices, improving the mobile experience:
-
-  ```css
-  /* disable double tap to zoom. only use in mobile-pwa */
-  touch-action: manipulation;
-  ```
-
-### Optional: `touchstart` Event Listener
-
-- **JavaScript Touch Event**: The `touchstart` event listener was previously used to handle touch
-  interactions on older iOS devices. While it is no longer necessary for most modern devices and
-  browsers, you can leave the code commented out and re-enable it if you experience touch
-  interaction issues:
-
-  ```javascript
-  // document.addEventListener("touchstart", function() {}, false);
-  ```
-
-### Customizing Styles
-
-The advent calendar deliberately uses a light colour scheme, regardless of the system setting.
-There is no dark mode. The paper background and accent colours are defined with CSS variables:
-
-```css
-:root {
- color-scheme: light;
- --bg-color: #F5EEDF;
- --font-color: #45634C;
- --christmas-red: #A63736;
- --fir-green: #45634C;
-}
-```
-
-Feel free to modify the styles to match your branding.
-
-### Favicons
-
-The template already ships with two optimized favicon formats stored in `icons/`:
-
-| File          | Type / Size | Purpose                                                                                      |
-| ------------- | ----------- | -------------------------------------------------------------------------------------------- |
-| `favicon.svg` | SVG, any    | Primary favicon for browsers with SVG support (Chrome, Firefox, Edge, Android Browser, etc.) |
-| `180x180.png` | PNG 180×180 | Fallback for current Safari versions and used as `apple-touch-icon` on iOS                   |
-
-Reference both in `index.html` to ensure maximum compatibility:
-
-```html
-<link rel="shortcut icon" href="icons/favicon.svg" type="image/svg+xml">
-<link rel="shortcut icon" href="icons/favicon.png">
-<link rel="apple-touch-icon" href="icons/180x180.png">
-```
-
-_Browser support note:_ SVG favicons work in all major browsers today. Safari will add support
-starting with iOS 26/macOS Safari (planned for autumn 2025). Keep the PNG fallback until then.
-
-### .nojekyll
-
-If you plan to deploy this project on GitHub Pages, the `.nojekyll` file is essential. It prevents
-GitHub Pages from ignoring files and folders that start with an underscore (`_`), and ensures your
-manually configured service worker and custom directory structure are served as-is—without
-interference from GitHub's Jekyll processing pipeline.
-
-You don't need to modify this file—its mere presence is enough.
-
-### Deno.json
-
-A strict `.deno.json` keeps formatting and linting consistent across the codebase:
-
-```jsonc
-{
- "fmt": {
-  "useTabs": true,
-  "indentWidth": 4,
-  "lineWidth": 100,
-  "singleQuote": false,
-  "semiColons": true
- },
- "lint": {
-  "rules": { "tags": ["recommended"] }
- }
-}
-```
-
-- **Format:** `deno fmt`
-- **Lint:** `deno lint`
-
-Adjust the values to suit your team’s conventions if necessary.
-
-### Summary
-
-- For a **standard website**, disable or remove PWA-specific features like the service worker,
-  manifest file, and touch-related CSS/JavaScript.
-- For a **PWA**, ensure that the manifest file, service worker, and PWA-related meta tags are
-  activated to provide offline support and a seamless mobile experience.
-
-This template provides a flexible starting point for both traditional websites and Progressive Web
-Apps!
+The rights to all illustrations in `img/` remain with their creator. These images are not available
+for use, copying, modification, or redistribution, including in personal or non-commercial projects.
