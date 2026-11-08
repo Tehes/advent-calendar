@@ -125,7 +125,7 @@ function renderDoors() {
 		const image = fragment.querySelector("img");
 		number.textContent = day;
 		image.alt = `Watercolour illustration for December ${day}`;
-		button.classList.toggle("red", index % 2 !== 0);
+		button.classList.toggle("red", day === 24 || (day !== 6 && index % 2 !== 0));
 		button.classList.toggle("tall", day === 6);
 		button.classList.toggle("large", day === 24);
 		button.addEventListener("click", () => handleDoorClick(day));

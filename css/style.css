@@ -140,9 +140,10 @@ CALENDAR
 */
 
 main {
+    container-type: inline-size;
     max-width: 1120px;
     margin: 0 auto;
-    padding: 44px 40px 56px;
+    padding: 44px 20px 56px;
 }
 
 main > header {
@@ -167,7 +168,8 @@ main > header p {
 
 #calendar {
     display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, 134px);
+    justify-content: center;
     gap: var(--grid-gap);
     margin-top: 40px;
 }
@@ -204,19 +206,51 @@ main > header p {
     grid-row: 2 / span 2;
 }
 
+@container (max-width: 883px) {
+    #calendar .door.large {
+        grid-column: -3 / -1;
+    }
+}
+
+@container (max-width: 583px) {
+    #calendar .door.large {
+        grid-row: 3 / span 2;
+    }
+}
+
+@container (max-width: 433px) {
+    #calendar {
+        grid-template-columns: repeat(2, minmax(0, 134px));
+    }
+}
+
+@container (min-width: 734px) and (max-width: 1033px) {
+    #calendar .door.large {
+        grid-row-end: span 3;
+        aspect-ratio: auto;
+    }
+}
+
+@container (min-width: 434px) and (max-width: 583px) {
+    #calendar .door.large {
+        grid-row-end: span 3;
+        aspect-ratio: auto;
+    }
+}
+
 #calendar .number {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(20px, 3vw, 36px);
+    font-size: 36px;
     font-weight: 400;
     line-height: 1;
 }
 
 #calendar .tall .number {
-    font-size: clamp(26px, 4vw, 48px);
+    font-size: 48px;
 }
 
 #calendar .large .number {
-    font-size: clamp(40px, 6vw, 76px);
+    font-size: 76px;
 }
 
 #calendar .door:disabled {
