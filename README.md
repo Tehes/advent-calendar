@@ -1,5 +1,7 @@
 # Advent Calendar
 
+![Advent Calendar screenshot](img/screenshot.png)
+
 Twenty-four days of hand-painted watercolor illustrations. Open a door each day in December to reveal
 its illustration, with a paper background and doors in Christmas red and fir green.
 
