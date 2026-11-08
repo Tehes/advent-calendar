@@ -29,7 +29,6 @@ DOM references
 const calendar = document.getElementById("calendar");
 const doorTemplate = document.getElementById("doorTemplate");
 const illustrationDialog = document.getElementById("illustrationDialog");
-const illustrationDate = document.getElementById("illustrationDate");
 const illustrationImage = document.getElementById("illustrationImage");
 const imageMessage = document.getElementById("imageMessage");
 const closeDialog = document.getElementById("closeDialog");
@@ -95,7 +94,9 @@ function refreshCalendar() {
 		const isAvailable = day <= availableDay;
 		const isOpened = isAvailable && state.opened.has(day);
 		door.button.disabled = !isAvailable;
-		door.button.title = isAvailable ? `Open December ${day}` : `Available on December ${day}`;
+		door.button.title = isAvailable
+			? `${isOpened ? "Close" : "Open"} December ${day}`
+			: `Available on December ${day}`;
 		door.number.hidden = isOpened;
 		door.image.hidden = !isOpened;
 		if (isOpened && !door.image.hasAttribute("src")) {
@@ -124,23 +125,29 @@ function renderDoors() {
 		const image = fragment.querySelector("img");
 		number.textContent = day;
 		image.alt = `Watercolour illustration for December ${day}`;
-		button.classList.toggle("red", index % 3 !== 0);
+		button.classList.toggle("red", index % 2 !== 0);
 		button.classList.toggle("tall", day === 6);
 		button.classList.toggle("large", day === 24);
-		button.addEventListener("click", () => openIllustration(day));
+		button.addEventListener("click", () => handleDoorClick(day));
 		doors.set(day, { button, number, image });
 		calendar.append(fragment);
 	}
 }
 
-function openIllustration(day) {
+function handleDoorClick(day) {
 	refreshCalendar();
 	if (doors.get(day).button.disabled) {
 		return;
 	}
 
+	if (state.opened.has(day)) {
+		state.opened.delete(day);
+		saveProgress();
+		refreshCalendar();
+		return;
+	}
+
 	state.activeDay = day;
-	illustrationDate.textContent = `December ${day}`;
 	illustrationImage.hidden = true;
 	illustrationImage.alt = `Watercolour illustration for December ${day}`;
 	imageMessage.textContent = "Loading illustration…";
@@ -164,10 +171,7 @@ function handleImageLoad() {
 	imageMessage.hidden = true;
 	state.opened.add(day);
 	saveProgress();
-	const door = doors.get(day);
-	door.image.src = illustrationImage.getAttribute("src");
-	door.image.hidden = false;
-	door.number.hidden = true;
+	refreshCalendar();
 }
 
 function handleDialogClose() {

@@ -30,7 +30,7 @@ This template optionally supports server-side or edge endpoints using **Deno Dep
 ```bash
 ├── index.html         # Main entry point
 ├── css/
-│   └── style.css      # Base styles, responsive design, dark mode support
+│   └── style.css      # Base styles, light colour scheme
 ├── js/
 │   ├── app.js         # Main JavaScript, includes initialization and SW configuration
 │   └── service-worker-registration.js # Browser-side SW registration and cleanup
@@ -187,20 +187,16 @@ up correctly:
 
 ### Customizing Styles
 
-The template includes basic CSS with variables for easy customization. Colors and themes are set for
-both light and dark modes:
+The advent calendar deliberately uses a light colour scheme, regardless of the system setting.
+There is no dark mode. The paper background and accent colours are defined with CSS variables:
 
 ```css
 :root {
- --bg-color: hsl(0, 0%, 95%);
- --font-color: hsl(0, 0%, 20%);
-}
-
-@media (prefers-color-scheme: dark) {
- :root {
-  --bg-color: hsl(0, 0%, 20%);
-  --font-color: hsl(0, 0%, 90%);
- }
+ color-scheme: light;
+ --bg-color: #F5EEDF;
+ --font-color: #45634C;
+ --christmas-red: #A63736;
+ --fir-green: #45634C;
 }
 ```
 

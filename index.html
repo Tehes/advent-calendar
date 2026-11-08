@@ -28,7 +28,7 @@
 	<main>
 		<header>
 			<h1>Advent Calendar</h1>
-			<p>Twenty-four days of hand-painted watercolor illustrations.</p>
+			<p>Twenty-four days of hand-painted watercolor illustrations</p>
 		</header>
 		<section id="calendar"></section>
 	</main>
@@ -41,15 +41,10 @@
 	</template>
 
 	<dialog id="illustrationDialog">
-		<div class="illustration">
-			<header>
-				<p id="illustrationDate"></p>
-				<button id="closeDialog" type="button" autofocus>Close <span>×</span></button>
-			</header>
-			<div class="image-stage">
-				<p id="imageMessage">Loading illustration…</p>
-				<img id="illustrationImage" alt="" hidden>
-			</div>
+		<button id="closeDialog" type="button" autofocus>Close <span>×</span></button>
+		<div class="image-stage">
+			<p id="imageMessage">Loading illustration…</p>
+			<img id="illustrationImage" alt="" hidden>
 		</div>
 	</dialog>
 

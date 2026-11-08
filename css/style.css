@@ -232,6 +232,11 @@ main > header p {
     box-shadow: inset 0 0 0 1px var(--door-color);
 }
 
+#calendar .door:has(img:not([hidden])),
+#calendar .door:has(img:not([hidden])):hover {
+    background-color: var(--door-color);
+}
+
 #calendar .door img {
     position: absolute;
     width: 100%;
@@ -270,24 +275,12 @@ html:has(dialog[open]) {
     background: rgba(28, 36, 29, 0.72);
 }
 
-.illustration > header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    margin-bottom: 20px;
-}
-
-#illustrationDate {
-    margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 22px;
-}
-
 #closeDialog {
     display: flex;
     align-items: center;
     gap: 12px;
+    width: max-content;
+    margin: 0 0 20px auto;
     padding: 4px 0 4px 12px;
     border: 0;
     background: transparent;
