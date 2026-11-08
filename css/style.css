@@ -1,12 +1,14 @@
 :root {
     color-scheme: light dark;
     /* will switch to oklch when its baseline: */
-    --bg-color: hsl(0, 0%, 95%);
+    --bg-color: hsl(41, 52%, 92%);
     /*  oklch(96%, 0%, 0) */
     --font-color: hsl(0, 0%, 20%);
     /* oklch(32%, 0%, 0) */
     accent-color: auto;
     /* change to your highlight color when needed */
+    --christmas-red: hsl(1, 51%, 43%);
+    --fir-green: hsl(134, 18%, 33%);
 }
 
 /*
